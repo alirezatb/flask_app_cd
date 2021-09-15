@@ -79,7 +79,7 @@ pipeline{
         artifactory_credentials_id = credentials("artifactory")
     }
     stages {
-        stage {
+        stage("deploy artifactory") {
             steps {
               script {
                 docker.withRegistry("https://civicusydrepo.jfrog.io", artifactory_credentials_id)
