@@ -16,19 +16,19 @@ pipeline {
             steps(runUnitTests())
         }
 
-        stage("Build") {
-            steps { buildApp() }
-		}
-
-        stage("Deploy - Dev") {
-            steps { deploy('dev') }
-		}
+//         stage("Build") {
+//             steps { buildApp() }
+// 		}
+//
+//         stage("Deploy - Dev") {
+//             steps { deploy('dev') }
+// 		}
 		stage("Test UAT Dev") {
 		    steps{ runUAT(8888)}
 		}
-        stage("deploy Stage") {
-            steps { runUAT(88)}
-        }
+//         stage("deploy Stage") {
+//             steps { runUAT(88)}
+//         }
 
 	}
 }
