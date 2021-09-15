@@ -82,7 +82,7 @@ pipeline{
         stage("deploy artifactory") {
             steps {
               script {
-                docker.withRegistry("https://civicusydrepo.jfrog.io", artifactory_credentials_id)
+                docker.withRegistry("https://civicusydrepo.jfrog.io", ${artifactory_credentials_id})
                 {
                   def dockerImage = docker.build("flask_dev/myapp:${BUILD_NUMBER}")
                   dockerImage.push()
