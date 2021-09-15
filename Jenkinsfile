@@ -23,7 +23,7 @@ pipeline {
 
 // steps
 def buildApp() {
-	dir ('flask_dev_jen' ) {
+	dir ('/var/jenkins_home/workspace/flask_dev_jen' ) {
 		def appImage = docker.build("flask_dev/myapp:${BUILD_NUMBER}")
 	}
 }
@@ -44,7 +44,7 @@ def deploy(environment) {
 
 	sh "docker ps -f name=${containerName} -q | xargs --no-run-if-empty docker stop"
 	sh "docker ps -a -f name=${containerName} -q | xargs -r docker rm"
-	sh "docker run -d -p ${port}:5000 --name ${containerName} hands-on-jenkins/myapp:${BUILD_NUMBER}"
+	sh "docker run -d -p ${port}:5000 --name ${containerName} flask_dev/myapp:${BUILD_NUMBER}"
 
 }
 
