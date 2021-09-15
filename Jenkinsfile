@@ -1,7 +1,7 @@
 #!/usr/bin/groovy
 
 pipeline {
-    agent {label 'master'}
+    agent any
 
     options {
         disableConcurrentBuilds()
