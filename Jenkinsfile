@@ -23,7 +23,7 @@ pipeline {
 
 // steps
 def buildApp() {
-	dir ('/var/jenkins_home/workspace/flask_dev_jen' ) {
+	dir ('flask_dev_jen/' ) {
 		def appImage = docker.build("flask_dev/myapp:${BUILD_NUMBER}")
 	}
 }
