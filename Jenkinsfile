@@ -23,9 +23,10 @@ pipeline {
 
 // steps
 def buildApp() {
-	dir ('flask_dev_jen/' ) {
-		def appImage = docker.build("flask_dev/myapp:${BUILD_NUMBER}")
-	}
+// 	dir ('flask_dev_jen' ) {
+// 		def appImage = docker.build("flask_dev/myapp:${BUILD_NUMBER}")
+// 	}
+    def appImage = docker.build("flask_dev/myapp:${BUILD_NUMBER}")
 }
 
 def deploy(environment) {
