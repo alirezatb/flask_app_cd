@@ -1,13 +1,20 @@
 #!/usr/bin/groovy
 
 pipeline {
-    agent any
+    agent {label 'master'}
 
     options {
         disableConcurrentBuilds()
     }
+    environment {
+        PYTHONPATH = "${WORKSPACE}/flask_dev_jen"
+    }
 
     stages {
+
+        stage("Test - Unit Test") {
+            steps(runUnitTests())
+        }
 
         stage("Build") {
             steps { buildApp() }
@@ -16,6 +23,12 @@ pipeline {
         stage("Deploy - Dev") {
             steps { deploy('dev') }
 		}
+		stage("Test UAT Dev") {
+		    steps{ runUAT(8888)}
+		}
+        stage("deploy Stage") {
+            steps { runUAT(88)}
+        }
 
 	}
 }
@@ -38,6 +51,10 @@ def deploy(environment) {
 		containerName = "app_dev"
 		port = "8888"
 	}
+	else if ("${environment}" == 'stage') {
+	    containerName = "app_stage"
+	    port = "88"
+	}
 	else {
 		println "Environment not valid"
 		System.exit(0)
@@ -49,3 +66,11 @@ def deploy(environment) {
 
 }
 
+def runUnitTests() {
+    sh "pip3 install --no-cache-dir -r ./flask_dev_jen/requirements.txt"
+    sh "python3 flask_dev_jen/tests/*.py"
+}
+
+def runUAT(port){
+    sh "flask_dev_jen/tests/runUAT.sh ${port}"
+}
