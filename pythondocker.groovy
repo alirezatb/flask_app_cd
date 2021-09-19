@@ -14,6 +14,7 @@ job('python docker example') {
             tag('${GIT_REVISION,length=9}')
             registryCredentials('docker-hub')
             forcePull(false)
+            forceTag(false)
             createFingerprints(false)
             skipDecorate()
         }
